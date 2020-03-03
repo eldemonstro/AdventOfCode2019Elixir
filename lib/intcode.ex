@@ -11,6 +11,16 @@ defmodule IntCode do
     {x * y, 4}
   end
 
+  def parse_program(program) do
+    program
+    |>String.split(~r/[,\n]/)
+    |>Enum.reject(& &1 == "")
+    |>Enum.map(& String.to_integer(&1))
+    |>Enum.with_index(0)
+    |>Enum.map(fn {k, v} -> {v, k} end)
+    |>Map.new()
+  end
+
   def execute(program, needle) do
     opcode  = program[needle]
     index_x = program[needle + 1]

@@ -13,4 +13,4 @@ value = contents
         |>Map.put(2, 2)
         |>IntCode.execute(0)
 
-IO.inspect value[0]
+IO.puts value[0]

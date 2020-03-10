@@ -1,4 +1,7 @@
 defmodule Trace do
+  @moduledoc """
+    Used to parse, calculate intersections and distances of given traces
+  """
   def parse(trace) do
     trace
     |>String.split(~r/,/)
@@ -50,5 +53,12 @@ defmodule Trace do
     not_in_second_trace = first_trace -- second_trace
 
     first_trace -- not_in_second_trace
+  end
+
+  def trace_distance(trace, coord) do
+    Enum.reduce_while(trace, 0, fn trace_coord, acc ->
+      if trace_coord != coord do {:cont, acc + 1}
+      else  {:halt, acc + 1} end
+    end)
   end
 end

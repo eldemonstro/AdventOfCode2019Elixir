@@ -10,7 +10,6 @@ IO.puts contents
                    end)
                    |>Enum.at(0)
 
-
   same_digits = pass
                 |>Integer.digits()
                 |>Enum.uniq()

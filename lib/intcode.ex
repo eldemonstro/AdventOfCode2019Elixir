@@ -85,16 +85,12 @@ defmodule IntCode do
   def execute(program, opcode, needle, inputs) do
     reversed_opcode = opcode |> Integer.digits() |> Enum.reverse()
 
-    _mode_a = Enum.at(reversed_opcode, 4) || 0
-    mode_b = Enum.at(reversed_opcode, 3) || 0
-    mode_c = Enum.at(reversed_opcode, 2) || 0
+    {mode_a, mode_b, mode_c} = {Enum.at(reversed_opcode, 4, 0), Enum.at(reversed_opcode, 3, 0), Enum.at(reversed_opcode, 2, 0)}
 
-    index_x = program[needle + 1]
-    index_y = program[needle + 2]
     index_z = program[needle + 3]
 
-    value_x = program[(if mode_c == 1, do: needle + 1, else: index_x)]
-    value_y = program[(if mode_b == 1, do: needle + 2, else: index_y)]
+    value_x = program[(if mode_c == 1, do: needle + 1, else: program[needle + 1])]
+    value_y = program[(if mode_b == 1, do: needle + 2, else: program[needle + 1])]
 
     {result, needle_jump} = case rem(opcode, 100) do
       1 ->

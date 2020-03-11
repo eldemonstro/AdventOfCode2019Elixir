@@ -6,14 +6,16 @@ required_output = 19_690_720
 
 Enum.find(0..99, fn noun ->
   Enum.find(0..99, fn verb ->
-    {:ok, value} = contents
-                   |>IntCode.parse_program()
-                   |>Map.put(1, noun)
-                   |>Map.put(2, verb)
-                   |>IntCode.execute(0)
-                   |>Map.fetch(0)
+    intcode = contents
+              |>IntCode.parse_program()
+              |>Map.put(1, noun)
+              |>Map.put(2, verb)
 
-    if value == required_output do
+    {:ok, first_op} = Map.fetch(intcode, 0)
+
+    { value, _ , _, _} = IntCode.execute(intcode, first_op, 0)
+
+    if value[0] == required_output do
       IO.puts(100 * noun + verb)
     end
   end)

@@ -9,6 +9,6 @@ intcode = contents
 
 {:ok, first_op} = Map.fetch(intcode, 0)
 
-{ value, _ , _, _} = IntCode.execute(intcode, first_op, 0)
+{value, _, _, _} = IntCode.execute(intcode, first_op, 0)
 
 IO.puts value[0]

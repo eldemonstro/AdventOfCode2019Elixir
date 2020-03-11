@@ -13,7 +13,7 @@ Enum.find(0..99, fn noun ->
 
     {:ok, first_op} = Map.fetch(intcode, 0)
 
-    { value, _ , _, _} = IntCode.execute(intcode, first_op, 0)
+    {value, _, _, _} = IntCode.execute(intcode, first_op, 0)
 
     if value[0] == required_output do
       IO.puts(100 * noun + verb)
